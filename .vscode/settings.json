@@ -1,5 +1,4 @@
 {
-  
   "files.watcherExclude": {
     "Library/": true,
     "Temp/": true,
@@ -60,7 +59,7 @@
     "UserSettings": true
   },
   "gitdoc.autoPush": "onCommit",
-  "gitdoc.autoPushDelay": 60000,
+  "gitdoc.autoPushDelay": 10000,
   "gitdoc.commitValidationLevel": "none",
   "gitdoc.enabled": true,
   "git.enabled": true,
@@ -68,5 +67,6 @@
   "editor.formatOnSave": true,
   "eslint.format.enable": true,
   "files.autoSave": "afterDelay",
-  "git.autoStash": true
+  "git.autoStash": true,
+  "gitdoc.autoCommitDelay": 15000
 }
