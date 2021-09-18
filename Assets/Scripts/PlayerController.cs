@@ -9,11 +9,15 @@ public class PlayerController : MonoBehaviour, @RollABallControls.IPlayerActions
 {
     public float speed;
     public TextMeshProUGUI countText;
+    public TextMeshProUGUI livesText;
     public GameObject winTextObject;
+    public GameObject loseTextObject;
     public @RollABallControls controls;
+    public Vector2 motion;
+
     private Rigidbody rb;
     private int count;
-    public Vector2 motion;
+    private int lives;
 
 
     // Start is called before the first frame update
@@ -21,9 +25,11 @@ public class PlayerController : MonoBehaviour, @RollABallControls.IPlayerActions
     {
         rb = GetComponent<Rigidbody>();
         count = 0;
+        lives = 3;
 
         SetCountText();
         winTextObject.SetActive(false);
+        loseTextObject.SetActive(false);
     }
 
     public void OnEnable()
@@ -46,10 +52,17 @@ public class PlayerController : MonoBehaviour, @RollABallControls.IPlayerActions
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString();
-        if(count >= 8)
+        if (count >= 18)
         {
             winTextObject.SetActive(true);
         }
+
+        livesText.text = "Lives: " + lives.ToString();
+        if (lives <= 0)
+        {
+            loseTextObject.SetActive(true);
+        }
+
     }
 
     // Update is called once per frame
@@ -65,8 +78,24 @@ public class PlayerController : MonoBehaviour, @RollABallControls.IPlayerActions
         {
             other.gameObject.SetActive(false);
             count = count + 1;
+
             SetCountText();
         }
-        
+        else if (other.gameObject.CompareTag("Enemy"))
+        {
+            other.gameObject.SetActive(false);
+            lives = lives - 1;
+            SetCountText();
+        }
+
+        if (count == 10)
+        {
+            transform.position = new Vector3(75.0f, 0.0f, 75.0f);
+        }
+
+        if (lives == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
